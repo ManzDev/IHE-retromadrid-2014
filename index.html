@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Innocent Hill Engine</title>
+
+		<meta name="description" content="Text-adventure engine to create your conversational games!">
+		<meta name="author" content="Manz">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:200,400|Noto+Sans:700' rel='stylesheet' type='text/css'>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<style type="text/css">
+			* {
+				outline:none;
+			}
+
+			.invisible {
+				background:none!important;
+				border:0!important;
+				box-shadow:none!important;
+			}
+
+			.hidden { opacity:0 }
+
+			.markb {
+				border:20px solid #000!important;
+			}
+
+			p strong {
+				color:#31DAE8;
+				font-family:'Open Sans'!important;
+				letter-spacing:1px;
+			}
+
+			ul.colors strong {
+				color:#F56610;
+			}
+
+			.vam { vertical-align:middle!important }
+
+			table.t td, table.t th { 
+				border:1px solid #FFF; 
+				padding:8px;
+				background:rgba(255, 255, 255, 0.05);
+				font-weight:lighter;
+			}
+
+			table.t th {
+				background:rgba(0, 0, 0, 0.15);
+			}
+
+			kbd {
+			    padding: 2px 4px!important;
+			    white-space: nowrap;
+			    color: #000!important;
+			    background: none repeat scroll 0% 0% #EEE;
+			    border-width: 1px 6px 6px 1px!important;
+			    border-style: solid!important;
+			    border-color: #CCC #AAA #888 #BBB!important;
+			    font-size:x-large!important;
+    		}
+
+    		em.r { color:#FF7722;}
+
+			ul li { 
+				list-style-type:square; 
+				line-height:140%!important;
+			}
+
+			h2 { 
+				margin-bottom:0.4em!important;
+			}
+
+			.round {
+				border-radius:20px!important;
+			}
+
+			.bowh {
+				border:30px solid #FFF!important;
+				background:#FFF!important;
+			}
+
+			li.fragment { text-shadow:0 0 5px #222; }
+			.color-red { color:#DD4444!important }
+			.color-green { color:#00AA00 }
+
+			.tipright { font-size:large!important; text-align:right }
+
+			.blackground {
+				background:#000!important;
+				transition: background-color 1s linear;
+			    -moz-transition: background-color 1s linear;
+		    	-o-transition: background-color 1s linear;
+		    	-webkit-transition: background-color 1s linear;
+			}
+
+			input { 
+				background:#FFF;
+				color:#222;
+				padding:6px;
+				border:0;
+				border-radius:10px;
+				display:block;
+				min-width:300px;
+				margin:auto;
+				font-family:'Open Sans';
+				font-size:18px;
+				box-shadow:2px 2px 5px #111;
+			}
+
+			.black {
+  				background: #07203a;
+  				background: radial-gradient(center, circle cover, #787878 0%, #202020 100%);
+			}
+
+			ul.items li {
+				list-style-type:none;
+			}
+
+			ul.items img {
+				vertical-align:middle;
+			}
+
+			.ttop li {
+				vertical-align:text-top!important;
+			}
+
+			pre {
+			 white-space: pre-wrap;       /* css-3 */
+			 white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+			 white-space: -pre-wrap;      /* Opera 4-6 */
+			 white-space: -o-pre-wrap;    /* Opera 7 */
+			 word-wrap: break-word;       /* Internet Explorer 5.5+ */
+			}
+
+			code {
+				background:#333!important;
+			}
+
+			div.c {
+				margin-top:1em;
+				font-family:'Raleway';
+				font-size:42px;
+
+			}
+			span.n { color:#ECDC17 }
+			span.v { color:#2BAA31 }
+			span.c { color:#06DFDA }
+
+		</style>
+
+		<script type="text/javascript">
+			function goURL(p) {
+			}
+		</script>
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>INNOCENT HILL ENGINE</h1>
+					<p>
+						<small>Por <a href="http://www.emezeta.com/">José Román Hdez</a> / <a href="http://twitter.com/manz">@Manz</a></small>
+					</p>
+				</section>
+
+				<section>
+
+					<section>
+						<h2>¿Quién soy?</h2>
+						<a href="http://www.emezeta.com/"><img class="invisible" src="img/emezeta-logo.png" /></a>
+						<p>Creador de <a href="http://www.emezeta.com/">Emezeta.com</a></p>
+					</section>					
+
+					<section>
+						<h2>Temáticas</h2>
+						<img class="invisible fragment fade-in" src="img/book.png" />
+						<img class="invisible fragment fade-in" src="img/android-logo.png" /><br />
+						<img class="invisible fragment fade-in" src="img/optimization.png" />
+						<img class="invisible fragment fade-in" src="img/guybrush.png" />
+					</section>
+
+					<section>
+						<h2>Colaborador</h2>
+						<a href="http://www.naukas.com/"><img class="invisible" src="img/naukas-logo.png" /></a>
+						<p>Colaborador en <a href="http://www.naukas.com/">Naukas.com</a></p>
+					</section>					
+
+					<section>
+						<h2>PERO... ¿VAS A SEGUIR HABLANDO DE TI?</h2>
+						<img class="invisible" src="img/stan.gif" />
+					</section>
+
+				</section>
+
+				<section>
+
+					<section >
+						<h2>Innocent Hill Engine</h2>
+						<div style="background:url(img/enter.png) 55px no-repeat; background-size:90% 90%; height:400px">
+							<a href="http://manzdev.github.io/text-adventure-engine"><img class="invisible" src="img/ihe.gif" /></a>
+						</div>
+					</section>
+
+					<section data-transition="linear">
+						<h2>¿Qué es una aventura conversacional?</h2>
+						<video autobuffer controls>
+							<source src="img/sheldon.webm">
+						</video>
+					</section>
+
+					<!--section>
+						<h2>¿Quizás sea algo como esto?</h2>
+						<img class="invisible" src="img/knock-knock-knock-penny.gif" />
+					</section-->
+
+					<section>
+						<h2>En realidad, es mucho más...</h2>
+						<ul>
+							<li class="fragment">Un relato, una historia, un mundo.</li>
+							<li class="fragment">Sensación (no real) de libertad.</li>
+							<li class="fragment">Una historia interactiva.</li>
+							<li class="fragment">Controlar la dirección de la aventura.</li>
+							<li class="fragment">Múltiples finales alternativos.</li>
+						</ul>	
+					</section>				
+
+					<section >
+						<h2>Basado en «El Jabato» (A.AD)</h2>
+						<img class="markb" src="img/jabato.gif" />
+					</section>
+
+					<section data-background="img/chrome-shape.png" data-background-size="785px 553px" data-background-transition="zoom" data-transition="linear">
+						<h2>¡Desde tu propio navegador!</h2>
+						<img class="invisible" src="img/chrome.png" />
+						<img class="invisible" src="img/firefox.png" />
+						<img class="invisible" src="img/ie.png" />
+						<img class="invisible" src="img/safari.png" />
+					</section>
+
+					<section data-background="img/chrome-shape.png" data-background-size="785px 553px" data-transition="linear">
+						<br /><br />
+						<img class="invisible" src="img/adventure-sample.png" style="width:552px;height:425px" />
+					</section>
+
+					<section data-background="img/chrome-shape.png" data-background-size="785px 553px">
+						<h2>Objetivos</h2>
+					</section>
+
+					<section data-background="img/chrome-shape.png" data-background-size="785px 553px">
+						<h3>Fácil de jugar</h3>
+						<p>¿Quién no sabe usar un navegador?</p>
+					</section>
+
+					<section data-background="img/chrome-shape.png" data-background-size="785px 553px">
+						<h3>Fácil de crear</h3>
+						<p>Simplemente, centrarse en la historia</p>
+					</section>
+
+					<section data-background="img/chrome-shape.png" data-background-size="785px 553px">
+						<h3>Multijugador</h3>
+						<p>Porque todo es mejor con amigos (o rivales)</p>
+					</section>
+
+					<section data-background="img/phone.png" data-background-size="354px 600px" data-background-position="center center" data-background-transition="zoom">
+						<div style="float:right">
+						<h3>Portátil</h3>
+						<p>En cualquier lugar.</p>
+						<p>En cualquier momento.</p>
+						</div>
+					</section>
+				</section>
+
+				<section data-background="#111" data-background-transition="zoom">
+
+					<section >
+						<h2>Características</h2>
+						<div style="background:url(img/enter.png) 55px no-repeat; background-size:90% 90%; height:400px">
+							<a href="http://manzdev.github.io/text-adventure-engine"><img class="invisible" src="img/ihe.gif" /></a>
+						</div>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Aventura conversacional</h2>
+						<img class="invisible" src="img/text-adventure.gif" style="width:640px;height:554px" />
+					</section>
+
+					<section data-transition="linear">
+						<h2>Acciones principales</h2>
+						<img class="invisible fragment roll-in" src="img/eye.png" /> 
+						<img class="invisible fragment roll-in" src="img/walk.png" />
+						<img class="invisible fragment roll-in" src="img/items.png" />
+						<img class="invisible fragment roll-in" src="img/think.png" />
+						<span id="acciones_ihe"></span>
+					</section>				
+
+					<section>
+						<h2>Resto de acciones</h2>
+						<img class="invisible fragment roll-in" src="img/talk.png" /><br /> 
+						<ul>
+							<li class="fragment">Se envían los mensajes a un «chat» multijugador</li>
+							<li class="fragment">Independiente por cada localidad</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Y además es</h2>
+						<img class="invisible" src="img/osi.png" />
+						<p>Cualquiera puede participar y colaborar</p>
+					</section>
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Instalación de Innocent Hill</h2>
+					</section>
+
+					<section>
+						<h2>Es una aplicación web</h2>
+						<img class="invisible" src="img/wordpress.png" /><br />
+						<a href="http://wordpress.org/">WordPress</a>
+					</section>
+
+					<section>
+						<h2>Requisitos</h2>
+						<ul>
+							<li class="fragment">Servidor de alojamiento (hosting)</li>
+							<li class="fragment">Servidor web Apache</li>
+							<li class="fragment">PHP 5.3 o superior</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Instalación local</h2>
+						<p>Si no tenemos un servidor de alojamiento...</p>
+						<a href="http://www.uwamp.com/en/"><img class="invisible fragment roll-in" src="img/uwamp.png" /></a>
+						<a href="http://www.apachefriends.org/es/index.html"><img class="invisible fragment roll-in" src="img/xampp.png" /></a>
+						<a href="http://www.wampserver.com/en/"><img class="invisible fragment roll-in" src="img/wampserver.png" /></a>
+						<p class="fragment roll-in">Más: <a href="http://www.emezeta.com/articulos/15-aplicaciones-para-montar-servidores-web-en-local">15 aplicaciones para montar servidores web en local</a></p>
+					</section>
+
+					<section data-transition="concave">
+						<h2>Menú del uWamp</h2>
+						<img class="invisible" src="img/uwamp-menu.png" />
+					</section>
+
+					<section data-transition="concave">
+						<h2>Descarga del motor</h2>
+						<p>Descarga desde su <a href="http://manzdev.github.io/text-adventure-engine/">web</a> o <a href="https://github.com/ManzDev/text-adventure-engine">GitHub</a>.</p>						
+						<img class="invisible" src="img/download.png" />
+					</section>
+
+					<section data-transition="concave">
+						<h2>Descomprime el contenido</h2>
+						<p>Descomprime en la carpeta de tu servidor web.</p>
+						<img class="invisible" src="img/unzip.png" />
+					</section>
+
+					<section data-transition="concave">
+						<h2>¡Listo!</h2>
+						<p>Ahora... ¡simplemente accede desde un navegador!</p>
+					</section>
+				</section>
+
+				<section>
+
+					<section>
+						<h2>Creación de una aventura</h2>
+					</section>
+
+					<section>
+						<h2>Requisitos</h2>
+						<ul>
+							<li class="fragment">Imaginación</li>
+							<li class="fragment">Lógica</li>
+							<li class="fragment">Editar textos</li>
+							<li class="fragment">Fotografías</li>
+						</ul><br />
+						<span class="fragment">(o el teléfono de alguien que sepa hacerlas)</span>
+					</section>
+					
+					<section>
+						<h2>Estructura de archivos</h2>
+						<img class="invisible" src="img/folder.png" />
+						<p>En la carpeta <strong>games</strong> se encuentran los diferentes juegos.</p>
+						<p>El motor incluye un juego de ejemplo: <strong>default</strong>.</p>
+					</section>
+
+					<section>
+						<h2>Cada juego contiene las carpetas...</h2>
+						<ul class="colors">
+							<li class="fragment"><strong>assets</strong>: Recursos (imágenes, sonidos...)</li>
+							<li class="fragment"><strong>chats</strong>: Chats de cada habitación</li>
+							<li class="fragment"><strong>data</strong>: Datos del juego (habitaciones, items...)</li>
+							<li class="fragment"><strong>users</strong>: Datos de los jugadores</li>		
+						</ul>
+					</section>
+
+					<section>
+						<h2>Además de información del juego</h2>
+						<img class="invisible" src="img/covers.png" />
+					</section>
+
+					<section>
+						<h2>Carpeta «assets»</h2>
+						<p>Escenas del lugar, imágenes del objeto (inventario), música, etc...</p>
+					</section>
+
+					<section>
+						<h2>Escenas de lugar</h2>
+						<p>Recomendaciones: Formato JPEG, 700x300 píxels. HDR.</p>
+						<img src="img/hospcorridor.jpg" />
+						<p class="fragment">Gracias a <a href="http://abandonalia.blogspot.com.es/">Abandonalia</a>, <a href="http://abandonadoasusuerte.blogspot.com.es/">Abandonado a su suerte</a> y <a href="http://www.flickr.com/photos/utopia13/">Iñaki Couceiro</a></p>
+					</section>
+
+					<section>
+						<h2>Conseguir buenas imágenes</h2>
+						<ul>
+							<li class="fragment"><a href="http://www.flickr.com/search/?q=&l=cc">Flickr</a> (Creative Commons)</li>
+							<li class="fragment"><a href="http://500px.com/creativecommons">500px</a> (Creative Commons)</li>
+							<li class="fragment"><a href="http://en.wikipedia.org/wiki/Wikipedia:Public_domain_image_resources">Wikipedia</a> (Dominio público)</li>
+							<li class="fragment">Quizás... ¿hacerlas tú mismo?</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Items de inventario</h2>
+						<p>Recomendaciones: Formato JPEG, 128x128 píxels.</p>
+						<img src="img/brujula.jpg" />
+						<img src="img/llave_roja.jpg" />
+						<img src="img/palanca.jpg" />
+					</section>
+
+					<section>
+						<h2>Conseguir buenos iconos</h2>
+						<ul>
+							<li class="fragment"><a href="https://www.iconfinder.com/search/?price=free">IconFinder</a> (Gratuitas)</li>
+							<li class="fragment"><a href="http://www.iconarchive.com/search?license=commercial">IconArchive</a> (Gratuitas)</li>
+							<li class="fragment"><a href="http://www.clker.com/">Clker</a> (Dominio público)</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Carpeta «chats»</h2>
+						<p>Conversaciones de los usuarios en las diferentes localidades</p>
+					</section>
+
+					<section>
+						<h2>Carpetas «data» y «users»</h2>
+						<table class="t">
+						<tr>
+							<th>Contenido</th>
+							<th>Carpeta</th>
+							<th>Archivo</th>
+							<th>¿Qué contiene?</th>
+						</tr>
+						<tr>
+							<td>Localidades</td>
+							<td>data</td>
+							<td>_______.json</td>
+							<td>Mirar, andar, etc...</td>
+						</tr>
+						<tr>
+							<td>Objetos</td>
+							<td>data</td>
+							<td>items.json</td>
+							<td>Items de inventario</td>
+						</tr>
+						<tr>
+							<td>Jugadores</td>
+							<td>users</td>
+							<td>_______.json</td>
+							<td>inventario, acciones...</td>
+						</tr>
+						</table>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section>
+						<h2>¿Qué es un archivo JSON?</h2>
+						<img class="invisible" src="img/json-logo.png" />
+					</section>
+
+					<section>
+						<h2>Editores</h2>
+						<ul>
+							<li class="fragment"><a href="http://jsoneditoronline.org/">JSON Editor Online</a></li>
+							<li class="fragment"><a href="http://json.bubblemix.net/">JSON Tinker</a></li>
+							<li class="fragment"><a href="http://www.thomasfrank.se/downloadableJS/JSONeditor_example.html">Classic JSON</a></li>
+							<li class="fragment"><a href="http://tomeko.net/software/JSONedit/index.php?lang=en">JSONEdit</a> (Windows)</li>
+							<li class="fragment"><a href="http://jsonlint.com/">JSONLint Validator</a>
+							<li class="fragment">Editor textos: <a href="https://www.sublimetext.com/">Sublime Text</a></li>
+						</ul>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Crear un lugar</h2>
+						<p>Crearemos un archivo de texto en la carpeta «data».</p>
+						<p>Por ejemplo, <strong>calle.json</strong></p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Bloque inicial</h2>
+						<p>Creamos un bloque inicial vacío.</p>
+						<pre><code class="codigo" data-trim>
+{
+
+}
+						</code></pre>
+						<p>Los bloques se crean mediante llaves <strong>{ }</strong></p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Elementos</h2>
+						<p>Cada elemento que crearemos tendrá esta estructura:</p>
+						<div class="c">
+						<p>"<span class="n">elemento</span>"<span class="c">:</span> "<span class="v">valor</span>"</p>
+						</div>
+
+						<div class="c fragment">
+							<p>"<span class="n">elemento</span>"<span class="c">:</span> ["<span class="v">valor1</span>", "<span class="v">valor2</span>", ... ]</p>
+						</div>
+
+					</section>	
+
+					<section data-transition="linear">
+						<h2>Bloque «Información»</h2>
+						<p>En el bloque <strong>info</strong> especificaremos información del lugar:</p>
+						<pre><code class="codigo" data-trim>
+{
+    "info": {
+
+    }
+}
+						</code></pre>
+					</section>				
+
+					<section data-transition="linear">
+						<h2>Información del lugar</h2>
+						<p>Por ejemplo, el <strong>nombre</strong>, <strong>imagen</strong> y <strong>descripción</strong>:</p>
+						<pre><code class="codigo" data-trim>
+{
+    "info": {
+        "name": "lugar",
+        "image": "lugar.jpg",
+        "description": "Esta parece la zona más vieja del pueblo. Varias casas antiguas aparecen a lo largo de la calle, y sus puertas, cerradas. Algunas grandes macetas adornan la estancia. Un poste de madera sujeta un cartel."
+    }
+}
+						</code></pre>
+						<p>(Las imágenes deben situarse en la carpeta «<strong>assets</strong>»)</p>
+						<p>¡Ojo a las comas!</p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Bloque «Data»</h2>
+						<p>Creamos un nuevo bloque llamado <strong>data</strong>:</p>
+						<pre><code class="codigo" data-trim>
+{
+    "info": {
+        ...
+    },
+    "data": {
+
+    }
+}
+						</code></pre>
+					</section>									
+
+					<section data-transition="linear">
+						<h2>Bloque «Exits»</h2>
+						<p>Dentro, creamos un nuevo bloque llamado <strong>exits</strong>:</p>
+						<pre><code class="codigo" data-trim>
+{
+    "info": {
+        ...
+    },
+    "data": {
+        "exits": {
+
+        }
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Salidas (desplazamiento)</h2>
+						<p>Y los lugares a los que podemos ir:</p>
+						<pre><code class="codigo" data-trim>
+{
+    "info": {
+        ...
+    },
+    "data": {
+        "exits": {
+            "sur": "taberna",
+            "oeste": "hospital",
+            "este": "prision"
+        }
+    }
+}
+						</code></pre>
+						<p>Por ejemplo, al <strong>sur</strong> se llega al lugar <strong>taberna.json</strong></p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Direcciones</h2>
+						<img class="invisible" src="img/compass.png" />
+						<p>Norte, sur, este, oeste, subir, bajar, entrar, salir.</p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Salidas (desplazamiento)</h2>
+						<p>Con condiciones (necesitas la <strong>llave roja</strong>):</p>
+						<pre><code class="codigo" data-trim>
+{
+    "info": {
+        ...
+    },
+    "data": {
+        "exits": {
+            "sur": {
+                "required" : "llave roja",
+                "target" : "taberna",
+                "excuse" : "La puerta está cerrada con llave."            
+            }
+        }
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Items (Objetos)</h2>
+						<p>Creamos un archivo <strong>items.json</strong> donde colocaremos TODOS los items que podemos guardar en nuestro inventario.</p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Items (Inventario)</h2>
+						<p>Con condiciones (necesitas la <strong>llave roja</strong>):</p>
+						<pre><code class="codigo" data-trim>
+{
+    "llave roja": {
+        "room": "calle.json",
+        "image": "llave_roja.jpg",
+        "look": "Una paqueña llave roja.",
+        "message": "He cogido la llave roja."
+    },
+    ...
+}
+						</code></pre>
+					</section>
+
+					<section data-background-transition="fade" data-background="#111" >
+						<h2>Inventario</h2>
+						<img class="invisible" src="img/items.gif" style="width:640px;height:551px" />
+					</section>
+
+					<section data-transition="linear">
+						<h2>Items y Acciones</h2>
+						<p>Los <strong>items</strong> son objetos de inventario.</p>
+						<p>Las <strong>acciones</strong> son hechos transparentes.</p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Acciones automáticas</h2>
+						<p>Al visitar un lugar, se crea la acción <strong>lugar_visited</strong>.</p>
+						<p class="fragment">Al mirar un objeto (con condiciones superadas), se crea la acción <strong>objeto_seen</strong>.</p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Salidas condicionales</h2>
+						<p>Si tienes <strong>brújula</strong> llegas, si no la tienes, te pierdes:</p>
+						<pre><code class="codigo" data-trim>
+{
+    "info": {
+        ...
+    },
+    "data": {
+        "exits": {
+            "sur": {
+                "required" : "brujula",
+                "target" : "casabosque",
+                "else" : "bosque"            
+            }
+        }
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Mirar</h2>
+						<p>Objetos de inventario, en <strong>items.json</strong>.</p>
+						<p>Objetos del lugar, en el archivo concreto: <strong>calle.json</strong>.</p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Mirar</h2>
+						<p>Objetos de inventario: en <strong>items.json</strong>.</p>
+						<pre><code class="codigo" data-trim>
+{
+    "info": {
+        ...
+    },
+    "data": {
+        ...
+    },
+    "mirar": {
+		"muro": "Hay un muro de ladrillos justo delante de ti.",
+		"ladrillo": "Ladrillos pequeños, rojos y de aspecto antiguo."
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Sinónimos</h2>
+						<p>Nombre general: alternativa1, alternativa2...</p>
+						<pre><code class="codigo" data-trim>
+{
+    ...
+    "synonyms" : {
+        "ladrillo": ["ladrillos", "bloque", "bloques"]
+    },
+    "mirar": {
+		"muro": "Hay un muro de ladrillos justo delante de ti.",
+		"ladrillo": "Ladrillos pequeños, rojos y de aspecto antiguo."
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Mirar (avanzado)</h2>
+						<p>Crear una acción y aumentar puntos:</p>
+						<pre><code class="codigo" data-trim>
+{
+    ...
+    "mirar": {
+		"pared": {
+		    "message": "Hay una sospechosa inscripción que dice «45823».",
+		    "setAction": "inscripcion_vista"
+		}
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Números o cantidades</h2>
+						<p>Útil para contadores (<strong>inc +1</strong>):</p>
+						<pre><code class="codigo" data-trim>
+{
+    ...
+    "mirar": {
+		"pared": {
+		    "message": "Hay una sospechosa inscripción que dice «45823».",
+		    "setAction": "inscripcion_vista",
+		    "inc" : "score"
+		}
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Números o cantidades (II)</h2>
+						<p>También es posible decrementar y/o especificar la cantidad:</p>
+						<pre><code class="codigo" data-trim>
+{
+    ...
+    "mirar": {
+		"pared": {
+		    "message": "Hay una inscripción maligna: «BELÉN ESTEBAN».",
+		    "setAction": "inscripcion_maligna_vista",
+		    "dec" : "score@5"
+		}
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Condiciones avanzadas</h2>
+						<p>Es posible especificar condiciones más complejas en <strong>required</strong>:</p>
+						<pre><code class="codigo" data-trim>
+{
+    "info": {
+        ...
+    },
+    "data": {
+        "exits": {
+            "sur": {
+                "required" : "brujula",
+                "target" : "casabosque",
+                "else" : "bosque"            
+            }
+        }
+    }
+}
+						</code></pre>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Condiciones avanzadas</h2>
+						<ul class="colors">
+							<li><strong>"brujula"</strong>: Tenerlo en el inventario</li>
+							<li class="fragment"><strong>"!brujula"</strong>: no tenerlo en inventario</li>
+							<li class="fragment"><strong>"#score@5"</strong>: tener 5 o más en score</li>
+							<li class="fragment"><strong>"-brujula"</strong>: haber cogido y dejado el objeto</li>
+							<li class="fragment"><strong>"-brujula@calle</strong>: haber dejado el objeto en la calle</li>
+							<li class="fragment"><strong>"+brujula"</strong>: haberlo cogido alguna vez</li>
+						</ul>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Finales alternativos</h2>
+						<p>Al margen del final oficial de la historia, es posible (y recomendable) crear finales alternativos.</p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Bloque finales</h2>
+						<p>Creamos bloque <strong>ends</strong>, dentro del bloque <strong>data</strong> del lugar donde quieres que finalice la aventura:</p>
+						<pre><code class="codigo" data-trim>
+{
+    "data": {
+        "exits": {
+            ...
+        },
+        "ends": {
+            "good": {
+                "required": ["house_visited", "mapa_seen", "#score@200"],
+                "title": "Good ending",
+                "text": "Mensaje del final",
+                "showscore": "score"
+            }
+        }
+    }
+}
+						</code></pre>
+						<p>También se puede usar <strong>target</strong> para redirigir a una URL.</p>
+					</section>
+
+					<section data-transition="linear">
+						<h2>Consejos</h2>
+						<ul>
+							<li class="fragment">Puedes crear laberintos con lugares similares</li>
+							<li class="fragment">Llaves: palanca, tarjeta-ID, pomo...</li>
+							<li class="fragment">Crea muchos objetos mirables</li>
+							<li class="fragment">Usa el humor</li>
+							<li class="fragment">Usa acentos sólo en descripciones</li>
+							<li class="fragment">UTF-8</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section data-background-transition="none">
+
+					<section>
+						<h2>Características futuras</h2>
+						<p>Lo que está por venir...</p>
+					</section>
+
+					<section data-transition="zoom" data-background="#111" >
+						<h2>Diálogos estilo aventura gráfica</h2>
+						<img class="invisible" src="img/talking.gif" style="width:640px;height:551px" />
+					</section>
+
+					<section>
+						<h2>Características futuras</h2>
+						<ul>
+							<li class="fragment">Skins o temas gráficos</li>
+							<li class="fragment">Gestor de juegos instalados</li>
+							<li class="fragment">Logros conseguidos</li>
+							<li class="fragment">Mejorar parser (usar alternativos)</li>
+							<li class="fragment">Generación automática de mapas</li>
+							<li class="fragment">Soporte bases de datos (SQLite)</li>
+						</ul>
+					</section>					
+
+					<section data-transition="zoom">
+						<h2>Administrador para el anfitrión</h2>
+						<img class="invisible" src="img/admin.png" />
+					</section>
+
+					<section data-transition="zoom">
+						<h2>Editor visual de aventuras</h2>
+						<img src="img/editor.png" />
+					</section>
+						
+				</section>
+
+				<section>
+
+					<section data-background="#000">
+						<h2>¡Eso es todo!</h2>
+						<img class="invisible" src="img/end-of-line.gif" />
+					</section>
+
+					<section data-background="#000">
+						<h2>¿Dudas? ¿Ideas? ¿Preguntas?</h2>
+						<p>Contacto: manz@emezeta.com</p>
+					</section>
+
+					<section>
+						<h2>Innocent Hill Engine</h2>
+						<div style="background:url(img/enter.png) 55px no-repeat; background-size:90% 90%; height:400px">
+							<a href="http://manzdev.github.io/text-adventure-engine"><img class="invisible" src="img/ihe.gif" /></a>
+						</div>
+					</section>
+
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+			/*
+			Reveal.configure({
+			  keyboard: {
+			    34: 'next', // go to the next slide when the ENTER key is pressed
+			    33: 'prev',
+			    27: function() {}, // do something custom when ESC is pressed
+			    32: null // don't do anything when SPACE is pressed (i.e. disable a reveal.js default binding)
+			  }
+			});*/
+
+			/*			
+			Reveal.addEventListener( 'fragmentshown', function( event ) {
+			    console.log(event.fragment);
+			} );
+			*/
+
+		</script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>		
+		<script type="text/javascript">
+			$('img').click(function() {
+				$(this).toggleClass('stretch');
+			});
+
+/*
+			$('input').keyup(function (e) {
+				// Si pulsamos enter, vamos a la página en cuestión
+				if (e.keyCode == 13) {
+
+					if (this.id == 'google')
+						window.open('https://www.google.es/search?q='+this.value, '_blank');
+					else if (this.id == 'duckduckgo')
+						window.open('https://duckduckgo.com/?q='+this.value, '_blank');
+
+				}
+				// Si pulsamos cursor abajo, avance página o retroceso página, quitamos el foco del input
+				else if ((e.keyCode == 34) || (e.keyCode == 40) || (e.keyCode == 33)) {
+					this.blur();
+				}
+			});	
+*/
+		</script>
+	</body>
+</html>
